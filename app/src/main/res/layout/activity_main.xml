@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/world_map"
     tools:context=".MainActivity">
 
     <RelativeLayout
@@ -104,11 +105,19 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="49dp"
                     android:text="@string/i_forgot_my_password"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    />
+                    android:autoLink="all"
+                    android:textAlignment="center"
+                    android:textColor="@color/blue"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:padding="4dp"
+                    android:focusable="true" />
 
             </RelativeLayout>
 
@@ -141,7 +150,7 @@
                 android:text="@string/or_login_with"
                 android:layout_gravity="center"
                 android:alpha="0.7"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="10dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -162,7 +171,8 @@
                     android:layout_height="40dp"
                     android:layout_marginStart="26dp"
                     android:layout_margin="8dp"
-                    android:background="@drawable/twitter" />
+                    android:background="@drawable/twitter"
+                    android:contentDescription="@string/twitter" />
 
             </LinearLayout>
 
