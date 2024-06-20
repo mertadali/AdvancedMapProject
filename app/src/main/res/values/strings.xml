@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">AdvancedTezProject</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="i_forgot_my_password">I forgot my password</string>
+    <string name="remember_me">Remember me</string>
+    <string name="or_login_with">Or Login with</string>
+    <string name="s_gn_up">Sıgn Up</string>
+    <string name="sign_n">Sign ın</string>
+    <string name="google">google</string>
+</resources>
