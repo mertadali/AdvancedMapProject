@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "147979282609",
+    "project_id": "advancedmapproject-11b14",
+    "storage_bucket": "advancedmapproject-11b14.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:147979282609:android:2f8f82c8c11a48591c9a90",
+        "android_client_info": {
+          "package_name": "com.mertadali.advancedtezproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAbDmkDEviRidz4eDsYvDwd5WqHEnNMGM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

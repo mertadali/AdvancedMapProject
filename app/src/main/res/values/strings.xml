@@ -9,4 +9,11 @@
     <string name="sign_n">Sign ın</string>
     <string name="google">google</string>
     <string name="twitter">twitter</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_post">Add Post</string>
+    <string name="sign_out">Sign-out</string>
+    <string name="location_icon" />
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
 </resources>
