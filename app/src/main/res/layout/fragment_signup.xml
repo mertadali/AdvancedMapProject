@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+       >
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:text=" Create Profile"
+
+            android:textColor="@color/black"
+            android:textSize="26sp"
+
+            android:textStyle="bold" />
+
+
+        <ImageView
+            android:id="@+id/profile_image"
+            android:layout_width="166dp"
+            android:layout_height="157dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            android:contentDescription="@string/choose_image"
+            android:onClick="selectProfile"
+            android:scaleType="centerCrop"
+            android:src="@drawable/profil" />
+
+
+        <EditText
+            android:id="@+id/userName"
+            android:layout_width="match_parent"
+            android:layout_height="51dp"
+            android:layout_marginBottom="12dp"
+            android:hint="User Name"
+            android:inputType="text"
+            android:textStyle="bold" />
+
+
+        <EditText
+            android:id="@+id/userEmail"
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:layout_marginBottom="12dp"
+            android:hint="@string/email"
+            android:importantForAutofill="no"
+            android:inputType="textEmailAddress"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/userPassword"
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:layout_marginBottom="12dp"
+            android:hint="@string/password"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            android:maxWidth="488dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/userConfirmPassword"
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:layout_marginBottom="12dp"
+            android:autofillHints=""
+            android:hint="@string/confirm_password"
+            android:inputType="textPassword"
+            android:maxWidth="488dp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/signupButton"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:backgroundTint="#51A188"
+            android:onClick="signUpCreate"
+            android:text="@string/sign_up"
+            app:cornerRadius="32dp" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>
+

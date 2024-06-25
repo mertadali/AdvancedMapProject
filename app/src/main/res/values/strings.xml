@@ -16,4 +16,13 @@
     <string name="location_icon" />
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
+    <string name="signout">Signout</string>
+    <string name="add_place">Add Place</string>
+    <string name="go_map">GO MAP</string>
+    <string name="create_an_account">Create an Account</string>
+    <string name="choose_image">Choose Image</string>
+    <string name="user_name">User Name</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="place_name">Place Name</string>
+    <string name="descripton">Descripton:</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.mertadali.advancedtezproject
+package com.mertadali.advancedtezproject.view.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

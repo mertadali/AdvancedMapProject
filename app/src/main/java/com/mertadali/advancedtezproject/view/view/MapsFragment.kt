@@ -1,4 +1,4 @@
-package com.mertadali.advancedtezproject
+package com.mertadali.advancedtezproject.view.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +10,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.mertadali.advancedtezproject.R
 
 class MapsFragment : Fragment() {
 

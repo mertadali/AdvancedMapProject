@@ -7,25 +7,40 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.mertadali.advancedtezproject.LoginFragment"
+        android:name="com.mertadali.advancedtezproject.view.view.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_signup"
+            app:destination="@id/signup" />
         <action
             android:id="@+id/action_loginFragment_to_postFragment"
             app:destination="@id/postFragment" />
     </fragment>
     <fragment
         android:id="@+id/postFragment"
-        android:name="com.mertadali.advancedtezproject.PostFragment"
+        android:name="com.mertadali.advancedtezproject.view.view.PostFragment"
         android:label="fragment_post"
         tools:layout="@layout/fragment_post" >
         <action
             android:id="@+id/action_postFragment_to_mapsFragment"
             app:destination="@id/mapsFragment" />
+        <action
+            android:id="@+id/action_postFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/mapsFragment"
-        android:name="com.mertadali.advancedtezproject.MapsFragment"
+        android:name="com.mertadali.advancedtezproject.view.view.MapsFragment"
         android:label="fragment_maps"
         tools:layout="@layout/fragment_maps" />
+    <fragment
+        android:id="@+id/signup"
+        android:name="com.mertadali.advancedtezproject.view.view.Signup"
+        android:label="fragment_signup"
+        tools:layout="@layout/fragment_signup">
+        <action
+            android:id="@+id/action_signup_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 </navigation>

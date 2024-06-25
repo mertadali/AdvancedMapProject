@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/world_map"
-    tools:context=".LoginFragment">
+    tools:context=".view.view.LoginFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.7"
-        android:background="@color/my_primary" />
+        android:alpha="0.3"
+        android:background="#D5D2DD" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:text="Welcome"
-                android:textColor="@color/my_primary"
+                android:textColor="@color/black"
                 android:textSize="32sp"
                 android:textStyle="bold" />
 
@@ -67,12 +67,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:alpha="0.8"
+                android:alpha="0.9"
                 android:text="Please login with your information"
                 android:textSize="14sp" />
 
             <EditText
-                android:id="@+id/textUser"
+                android:id="@+id/userMail"
                 android:layout_width="match_parent"
                 android:layout_height="49dp"
                 android:layout_marginBottom="10dp"
@@ -87,7 +87,9 @@
                 android:layout_marginBottom="10dp"
                 android:drawableEnd="@drawable/password_icon"
                 android:hint="@string/password"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+
+             />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -95,10 +97,10 @@
                 android:layout_marginBottom="10dp">
 
                 <CheckBox
+                    android:id="@+id/rememberMeCheckbox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:alpha="0.7"
+
                     android:text="@string/remember_me" />
 
                 <TextView
@@ -128,16 +130,22 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/signButton"
                     android:layout_width="120dp"
                     android:layout_height="50dp"
                     android:layout_marginEnd="26dp"
+                    android:onClick="signIn"
+                    android:backgroundTint="#389E9B"
                     android:text="@string/sign_in"
                     app:cornerRadius="32dp" />
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/signupButton"
                     android:layout_width="120dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="26dp"
+                    android:backgroundTint="#389E9B"
+                    android:onClick="signUp"
                     android:text="@string/sign_up"
                     app:cornerRadius="32dp" />
 
@@ -148,7 +156,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
-                android:alpha="0.7"
+                android:alpha="0.9"
                 android:text="@string/or_login_with" />
 
             <LinearLayout
@@ -163,7 +171,6 @@
                     android:layout_height="60dp"
                     android:background="@drawable/google"
                     android:contentDescription="@string/google" />
-
 
 
             </LinearLayout>
