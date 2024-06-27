@@ -5,10 +5,10 @@
     <string name="i_forgot_my_password">I forgot my password</string>
     <string name="remember_me">Remember me</string>
     <string name="or_login_with">Or Login with</string>
-    <string name="s_gn_up">Sıgn Up</string>
+
     <string name="sign_n">Sign ın</string>
     <string name="google">google</string>
-    <string name="twitter">twitter</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_post">Add Post</string>
@@ -24,5 +24,7 @@
     <string name="user_name">User Name</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="place_name">Place Name</string>
-    <string name="descripton">Descripton:</string>
+    <string name="descripton">Description:</string>
+    <string name="web_client_id">147979282609–8saq14qbce6rhtddne5nf9f7iijqpus4.apps.googleusercontent.com</string>
+
 </resources>

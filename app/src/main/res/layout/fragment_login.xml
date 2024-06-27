@@ -166,11 +166,15 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/google"
-                    android:contentDescription="@string/google" />
+                <!-- Örneğin, Button kullanarak -->
+               <com.google.android.gms.common.SignInButton
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/googleSignInBtn"
+                   >
+
+               </com.google.android.gms.common.SignInButton>
+
 
 
             </LinearLayout>

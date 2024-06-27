@@ -1,106 +1,232 @@
-package com.mertadali.advancedtezproject.view.view
+    package com.mertadali.advancedtezproject.view.view
 
-import android.content.Context
-import android.content.SharedPreferences
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
-import androidx.navigation.fragment.findNavController
-import com.google.firebase.Firebase
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
-import com.mertadali.advancedtezproject.databinding.FragmentLoginBinding
+    import android.app.Activity
+    import android.content.Context
+    import android.content.Intent
+    import android.content.IntentSender
+    import android.content.SharedPreferences
+    import android.os.Bundle
+    import android.view.LayoutInflater
+    import android.view.View
+    import android.view.ViewGroup
+    import android.widget.Toast
+    import androidx.fragment.app.Fragment
+    import androidx.navigation.fragment.findNavController
+    import com.google.android.gms.auth.api.identity.BeginSignInRequest
+    import com.google.android.gms.auth.api.identity.GetSignInIntentRequest
+    import com.google.android.gms.auth.api.identity.Identity
+    import com.google.android.gms.auth.api.identity.SignInClient
+    import com.google.firebase.Firebase
+    import com.google.firebase.auth.FirebaseAuth
+    import com.google.firebase.auth.FirebaseUser
+    import com.google.firebase.auth.GoogleAuthProvider
+    import com.google.firebase.auth.auth
+    import com.mertadali.advancedtezproject.R
+    import com.mertadali.advancedtezproject.databinding.FragmentLoginBinding
 
 
-class LoginFragment : Fragment() {
+    class LoginFragment : Fragment() {
 
-    private var _binding: FragmentLoginBinding? = null
-    private val binding get() = _binding!!
-    private lateinit var auth: FirebaseAuth
-    private lateinit var sharedPreferences: SharedPreferences
+        private var _binding: FragmentLoginBinding? = null
+        private val binding get() = _binding!!
+        private lateinit var auth: FirebaseAuth
+        private lateinit var sharedPreferences: SharedPreferences
+        private val REQ_ONE_TAP = 2  // Can be any integer unique to the Activity
+        private var showOneTapUI = true
+        private lateinit var signInRequest: BeginSignInRequest
+        private lateinit var oneTapClient: SignInClient
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
 
-        auth = Firebase.auth
+            auth = Firebase.auth
 
-        sharedPreferences = requireActivity().getSharedPreferences("com.mertadali.advancedtezproject.view.view",Context.MODE_PRIVATE)
+            sharedPreferences = requireActivity().getSharedPreferences("com.mertadali.advancedtezproject.view.view",Context.MODE_PRIVATE)
 
-        val rememberMe = sharedPreferences.getBoolean("remember_me",false)
-        if (rememberMe){
-            val action = LoginFragmentDirections.actionLoginFragmentToPostFragment()
-            findNavController().navigate(action)
+           checkUserSession()
 
-        }else{
 
-            val currentUser = auth.currentUser
-            if (currentUser != null){
-                readlnOrNull()
+        }
+
+        private fun checkUserSession(){
+            val rememberMe = sharedPreferences.getBoolean("remember_me",false)
+            if (rememberMe){
+                val action = LoginFragmentDirections.actionLoginFragmentToPostFragment()
+                findNavController().navigate(action)
+
+            }else{
+
+                val currentUser = auth.currentUser
+                if (currentUser != null){
+                    updateUI(currentUser)
+                }
+            }
+
+        }
+        private fun updateUI(user: FirebaseUser?) {
+            if (user != null) {
                 val action = LoginFragmentDirections.actionLoginFragmentToPostFragment()
                 findNavController().navigate(action)
             }
         }
 
 
-    }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        override fun onCreateView(
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
+        ): View? {
+            // Inflate the layout for this fragment
+            _binding = FragmentLoginBinding.inflate(inflater, container, false)
+            val view = binding.root
+            return view
 
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.signupButton.setOnClickListener {
-            val action = LoginFragmentDirections.actionLoginFragmentToSignup()
-            findNavController().navigate(action)
         }
 
-        binding.signButton.setOnClickListener {
-            val userMail = binding.userMail.text.toString()
-            val userPassword = binding.userPassword.text.toString()
-            val rememberMe = binding.rememberMeCheckbox.isChecked
 
-            if (userMail != "" && userPassword != ""){
-                auth.signInWithEmailAndPassword(userMail,userPassword).addOnCompleteListener {result ->
-                    if (result.isSuccessful){
 
-                        val currentUser = auth.currentUser
-                        currentUser!!.email.toString()
-                        Toast.makeText(requireContext(),"Welcome : ${currentUser.email}",Toast.LENGTH_LONG).show()
+        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+            super.onViewCreated(view, savedInstanceState)
 
-                        sharedPreferences.edit().putBoolean("remember_me",rememberMe).apply()
+            oneTapClient = Identity.getSignInClient(requireActivity())
+            binding.googleSignInBtn.setOnClickListener {
+                val signInRequest = BeginSignInRequest.builder()
+                    .setGoogleIdTokenRequestOptions(
+                       BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
+                            .setSupported(true)
+                            .setServerClientId(getString(R.string.web_client_id))
+                            .setFilterByAuthorizedAccounts(false)
+                            .build()
+                    )
+                    .setAutoSelectEnabled(true)
+                    .build()
 
-                        val action = LoginFragmentDirections.actionLoginFragmentToPostFragment()
-                        findNavController().navigate(action)
+                oneTapClient.beginSignIn(signInRequest)
+                    .addOnSuccessListener { intentSenderResponse ->
+                        try {
+                            startIntentSenderForResult(
+                              intentSenderResponse.pendingIntent.intentSender,
+                                REQ_ONE_TAP,
+                                null,
+                                0,
+                                0,
+                                0,
+                                null
+                            )
+                        } catch (e: IntentSender.SendIntentException) {
+                            Toast.makeText(
+                                requireContext(),
+                                "Failed to start sign-in intent.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            e.printStackTrace()
+                        }
                     }
+                    .addOnFailureListener { e ->
+                        Toast.makeText(
+                            requireContext(),
+                            "Failed to get sign-in intent: ${e.message}",
+                            Toast.LENGTH_SHORT
 
-
-                }.addOnFailureListener {
-                    Toast.makeText(requireContext(),"User undefined",Toast.LENGTH_LONG).show()
-                }
+                        ).show()
+                        println(e.message)
+                    }
             }
 
+
+
+
+            binding.signupButton.setOnClickListener {
+                val action = LoginFragmentDirections.actionLoginFragmentToSignup()
+                findNavController().navigate(action)
+            }
+
+            binding.signButton.setOnClickListener {
+                println(binding.signButton)
+                val userMail = binding.userMail.text.toString()
+                val userPassword = binding.userPassword.text.toString()
+                val rememberMe = binding.rememberMeCheckbox.isChecked
+
+                if (userMail != "" && userPassword != ""){
+                    auth.signInWithEmailAndPassword(userMail,userPassword).addOnCompleteListener {result ->
+                        if (result.isSuccessful){
+
+                            val currentUser = auth.currentUser
+                            currentUser!!.email.toString()
+                            Toast.makeText(requireContext(),"Welcome : ${currentUser.email}",Toast.LENGTH_LONG).show()
+
+                            sharedPreferences.edit().putBoolean("remember_me",rememberMe).apply()
+
+                            val action = LoginFragmentDirections.actionLoginFragmentToPostFragment()
+                            findNavController().navigate(action)
+                        }
+
+
+                    }.addOnFailureListener {
+                        Toast.makeText(requireContext(),"User undefined",Toast.LENGTH_LONG).show()
+                    }
+                }
+
+            }
+
+
         }
 
+
+
+
+
+
+        override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+            super.onActivityResult(requestCode, resultCode, data)
+
+            if (requestCode == REQ_ONE_TAP) {
+                when (resultCode) {
+                    Activity.RESULT_OK -> {
+                        // Handle successful sign-in
+                        val credential = oneTapClient.getSignInCredentialFromIntent(data)
+                        val idToken = credential.googleIdToken
+                        if (idToken != null) {
+                            val firebaseCredential = GoogleAuthProvider.getCredential(idToken, null)
+                            auth.signInWithCredential(firebaseCredential)
+                                .addOnCompleteListener { task ->
+                                    if (task.isSuccessful) {
+                                        // Sign in success, update UI with the signed-in user's information
+                                        val user = auth.currentUser
+                                        Toast.makeText(requireContext(), "Welcome: ${user?.email}", Toast.LENGTH_LONG).show()
+                                        updateUI(user)
+                                    } else {
+                                        // If sign in fails, display a message to the user.
+                                        Toast.makeText(requireContext(), "Sign in failed.", Toast.LENGTH_LONG).show()
+                                        updateUI(null)
+                                    }
+                                }
+                        } else {
+                            Toast.makeText(requireContext(), "No ID token received.", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                    Activity.RESULT_CANCELED -> {
+                        // Handle cancelled sign-in
+                        Toast.makeText(requireContext(), "Sign-in cancelled.", Toast.LENGTH_LONG).show()
+                    }
+                    else -> {
+                        // Handle other results if needed
+                    }
+                }
+            }
+        }
+
+
+
+        override fun onDestroyView() {
+            super.onDestroyView()
+            _binding = null
+        }
     }
 
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
 
-}
+
+
