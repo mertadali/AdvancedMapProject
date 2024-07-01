@@ -33,7 +33,11 @@
         android:id="@+id/mapsFragment"
         android:name="com.mertadali.advancedtezproject.view.view.MapsFragment"
         android:label="fragment_maps"
-        tools:layout="@layout/fragment_maps" />
+        tools:layout="@layout/fragment_maps" >
+        <action
+            android:id="@+id/action_mapsFragment_to_postFragment"
+            app:destination="@id/postFragment" />
+    </fragment>
     <fragment
         android:id="@+id/signup"
         android:name="com.mertadali.advancedtezproject.view.view.Signup"

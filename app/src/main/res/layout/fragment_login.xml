@@ -86,6 +86,8 @@
                 android:layout_height="49dp"
                 android:layout_marginBottom="10dp"
                 android:drawableEnd="@drawable/password_icon"
+                android:clickable="true"
+                android:focusable="true"
                 android:hint="@string/password"
                 android:inputType="textPassword"
 

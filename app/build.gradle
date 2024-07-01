@@ -17,6 +17,7 @@ android {
         targetSdk 34
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -37,8 +38,14 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+
 }
-def room_version = "2.6.1"
+
+ext {
+    room_version = '2.6.1' // Kullandığınız Room sürümüne uygun olarak değiştirin
+}
+
 
 dependencies {
 
@@ -52,16 +59,21 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:19.0.0'
 
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
 
 
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:33.1.1"))
     implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-storage")
     //Auth
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.android.gms:play-services-auth:21.2.0")
+
+    // Picasso
+    implementation 'com.squareup.picasso:picasso:2.8'
 
     // Room Database
     implementation("androidx.room:room-runtime:$room_version")
@@ -69,5 +81,7 @@ dependencies {
     // RxJava
     implementation("androidx.room:room-rxjava3:$room_version")
     implementation "io.reactivex.rxjava3:rxandroid:3.0.0"
+
+    implementation 'androidx.multidex:multidex:2.0.1'
 
 }
